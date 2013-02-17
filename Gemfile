@@ -19,5 +19,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+# Upload stuff
+gem 'carrierwave'
 
 gem 'jquery-rails'

@@ -33,6 +33,9 @@ GEM
     bson_ext (1.6.0)
       bson (= 1.6.0)
     builder (3.0.4)
+    carrierwave (0.8.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -126,6 +129,7 @@ PLATFORMS
 
 DEPENDENCIES
   bson_ext (= 1.6.0)
+  carrierwave
   coffee-rails (~> 3.2.1)
   jquery-rails
   mongo (= 1.6.0)
