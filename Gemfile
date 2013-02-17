@@ -21,5 +21,6 @@ end
 
 # Upload stuff
 gem 'carrierwave'
+gem 'fog'
 
 gem 'jquery-rails'
