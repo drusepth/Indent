@@ -17,11 +17,12 @@ class Character
   field :skintone,   :type => String
   field :bodytype,   :type => String
   field :identmarks, :type => String # Identifying marks
+  field :image,      :type => String
 
   # Social
   field :bestfriend, :type => String
-  field :religion, :type => String
-  field :politics, :type => String
+  field :religion,   :type => String
+  field :politics,   :type => String
   field :prejudices, :type => String
   field :occupation, :type => String
   field :pets, :type => String
