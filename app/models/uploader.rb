@@ -5,9 +5,9 @@ CarrierWave.configure do |config|
     config.cache_dir = 'carrierwave'
 
     config.storage = :s3
-    config.s3_access_key_id = ENV['S3_KEY']
-    config.s3_secret_access_key = ENV['S3_SECRET']
-    config.s3_bucket = ENV['S3_BUCKET']
+    config.s3_access_key_id = 'AKIAIWF4IBEMI6EQ3XOA'
+    config.s3_secret_access_key = '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'
+    config.s3_bucket = 'drusepth_Plan'
   else
     config.storage = :file
   end
