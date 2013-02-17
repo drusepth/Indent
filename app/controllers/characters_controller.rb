@@ -59,6 +59,10 @@ class CharactersController < ApplicationController
     @character.user_id = session[:user]
     @character.universe = Universe.where(user_id: session[:user]).where(name: params[:character][:universe].strip).first
 
+    file = params[:character][:image]
+    uploader = Uploader.new
+    uploader.store! file
+
     respond_to do |format|
       if @character.save
         format.html { redirect_to @character, notice: 'Character was successfully created.' }
