@@ -35,6 +35,14 @@ class UniversesController < ApplicationController
     end
   end
 
+  def set_active
+    if params[:id] == 0
+      session[:universe_filter] = nil
+    else
+      session[:universe_filter] = params[:id]
+    end
+  end
+
   def edit
     @universe = Universe.find(params[:id])
   end

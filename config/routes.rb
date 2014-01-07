@@ -90,6 +90,7 @@ PlanCharacters::Application.routes.draw do
     post   '/universe/new',      :to => 'universes#create',  :as => :universe_create_process
     get    '/universe/:id',      :to => 'universes#show',    :as => :universe
     get    '/universe/:id/edit', :to => 'universes#edit',    :as => :universe_edit
+    get    '/universe/:id/set',  :to => 'universes#set_active', :as => :universe_filter
     put    '/universe/:id',      :to => 'universes#update',  :as => :universe_edit_process
     delete '/universe/:id',      :to => 'universes#destroy', :as => :universe_destroy
 
