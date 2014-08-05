@@ -20,7 +20,8 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
+
     respond_to do |format|
       if @user.save
 		    session[:user] = @user.id
@@ -33,14 +34,13 @@ class UsersController < ApplicationController
     end
   end
 
-  def anonymous_login
-    # todo guarantee anonymous id is random (or just let db assign it?)
-    id = rand(10000000).to_s + rand(10000000).to_s
+	def anonymous_login
+		id = rand(10000000).to_s + rand(10000000).to_s
     @user = User.new(:name => 'Anonymous-' + id.to_s, :email => id.to_s + '@localhost', :password => id.to_s)
 
     respond_to do |format|
       if @user.save
-        session[:user] = @user.id
+		    session[:user] = @user.id
         session[:anon_user] = true
         format.html { redirect_to dashboard_path }
         format.json { render json: @user, status: :created }
@@ -49,7 +49,7 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
-  end
+	end
 
   # PUT /users/1
   # PUT /users/1.json
@@ -57,7 +57,7 @@ class UsersController < ApplicationController
     @user = User.find(session[:user])
 
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+      if @user.update_attributes(user_params)
         session[:anon_user] = false
         format.html { redirect_to homepage_path, notice: 'Successfully updated.' }
         format.json { head :no_content }
@@ -70,4 +70,9 @@ class UsersController < ApplicationController
   
   def anonymous
   end
+
+  private
+    def user_params
+      params.require(:user).permit(:name, :password, :email)
+    end
 end
