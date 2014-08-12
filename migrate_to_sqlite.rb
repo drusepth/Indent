@@ -3,24 +3,23 @@ require 'json'
 def load_objects(klass, json_source_file)
   File.open(json_source_file, "r").each_line do |line|
 
-    puts "--------------------------------"
-    puts line
-
     # Sanitize mongo associations
     line.gsub!(/ObjectId\( "([^\)]+)" \)/, ' "\1"')
 
     # Remove mongo dates
     line.gsub!(/Date\( [\d]+ \)/, '""')
 
-    puts line
-
     # Create instance in memory
-    obj = klass.new
+    memory_object = klass.new
 
     # Assign properties to instance
-    properties = JSON.parse line
+    json_object = JSON.parse line
+    json_object.keys.each do |key|
+      memory_object[key] = json_object[key]
+    end
 
-    puts properties.inspect
+    # Save to DB
+    #memory_object.save!
   end
 end
 
