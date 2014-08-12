@@ -1,6 +1,8 @@
 require 'json'
 
 def load_objects(klass, json_source_file)
+  objects = []
+
   File.open(json_source_file, "r").each_line do |line|
 
     # Sanitize mongo associations
@@ -18,8 +20,21 @@ def load_objects(klass, json_source_file)
       memory_object[key] = json_object[key]
     end
 
+    # Store object in memory to create links later
+    objects << memory_object
+
+    raise memory_object.inspect
+  end
+end
+
+def save_objects(id_translation_table, objects)
+  objects.each do |object|
     # Save to DB
-    #memory_object.save!
+    #object.save!
+
+    # Grab the new ID for association migrations in the next step
+    old_id = object['_id']
+    id_translation_table[old_id] = object.reload.id
   end
 end
 
@@ -29,7 +44,12 @@ end
 
 classes_to_migrate = %w(users characters equipment languages locations magics universes)
 
+id_translation = {}
+
 db = {}
 classes_to_migrate.each do |klass|
   db[klass] = load_objects(klass.singularize.titleize.constantize, path_for(klass))
+
+  save_objects(id_translation, db[klass])
 end
+
