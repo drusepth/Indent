@@ -23,14 +23,14 @@ def load_objects(klass, json_source_file)
     # Store object in memory to create links later
     objects << memory_object
 
-    raise memory_object.inspect
+    #raise memory_object.inspect
   end
 end
 
 def save_objects(id_translation_table, objects)
   objects.each do |object|
     # Save to DB
-    #object.save!
+    object.save!
 
     # Grab the new ID for association migrations in the next step
     old_id = object._id
