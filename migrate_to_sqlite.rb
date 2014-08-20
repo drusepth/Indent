@@ -33,8 +33,16 @@ def save_objects(id_translation_table, objects)
     #object.save!
 
     # Grab the new ID for association migrations in the next step
-    old_id = object['_id']
+    old_id = object._id
     id_translation_table[old_id] = object.reload.id
+  end
+end
+
+def update_links(id_translation_table, objects)
+  objects.each do |object|
+    object.keys.select { |key| key.ends_with? '_id' }.each do |ref_key|
+      object[ref_key] = id_translation_table[object._id]
+    end
   end
 end
 
@@ -51,5 +59,6 @@ classes_to_migrate.each do |klass|
   db[klass] = load_objects(klass.singularize.titleize.constantize, path_for(klass))
 
   save_objects(id_translation, db[klass])
+  update_links(id_translation, db[klass])
 end
 
