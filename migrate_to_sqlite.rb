@@ -67,4 +67,5 @@ relink_queue.flatten.each do |relink_event|
   puts "Linking #{object.inspect} attribute #{attribute} from #{old_id} to #{new_key}"
 
   object[attribute] = new_key
+  object.save
 end
