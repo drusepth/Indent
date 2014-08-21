@@ -21,6 +21,11 @@ def load_objects(klass, json_source_file)
       memory_object[key] = json_object[key]
     end
 
+    # Save object into DB
+    memory_object.save!
+
+    puts "Translation: #{json_object['_id']} --> #{memory_object.id}"
+
     # Store object in memory to create links later
     objects << memory_object
   end
@@ -28,28 +33,15 @@ def load_objects(klass, json_source_file)
   objects
 end
 
-def save_objects(id_translation_table, objects)
-  objects.each do |object|
-    # Grab the new ID for association migrations in the next step
-    old_id = object.id
-
-    # Delete the non-sqlite keys before saving
-    object.id = nil
-
-    puts object.inspect
-
-    # Save to DB
-    object.save!
-
-    # Fetch the new ID and track old-->new
-    id_translation_table[old_id] = object.reload.id
-  end
-end
-
 def update_links(id_translation_table, objects)
   objects.each do |object|
-    object.keys.select { |key| key.ends_with? '_id' }.each do |ref_key|
-      object[ref_key] = id_translation_table[object._id]
+    object.attributes.each do |attr_name, attr_value|
+      if attr_name.ends_with? '_id'
+        puts "attr_name is #{attr_name}"
+        puts "value is #{attr_value}"
+        puts "Linking #{attr_name} to id #{id_translation_table[object.id]} for id #{object.id}"
+        object.send("#{attr_name}=" + id_translation_table[object.id].to_s)
+      end
     end
   end
 end
@@ -60,18 +52,8 @@ end
 
 classes_to_migrate = %w(users characters equipment languages locations magics universes)
 
-id_translation = {}
-
 db = {}
 classes_to_migrate.each do |klass|
   puts "Loading #{klass} objects"
   db[klass] = load_objects(klass.singularize.titleize.constantize, path_for(klass))
-
-  puts "Saving #{klass} objects"
-  save_objects(id_translation, db[klass])
-end
-
-classes_to_migrate.each do |klass|
-  puts "Linking #{klass} objects"
-  update_links(id_translation, db[klass])
 end
