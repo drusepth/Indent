@@ -1,5 +1,6 @@
 = Indent
-{<img src="https://travis-ci.org/drusepth/Indent.png?branch=master" alt="Build Status" />}[https://travis-ci.org/drusepth/Indent]
+{<img src="https://travis-ci.org/drusepth/Indent.png?branch=master" alt="Build Status" />}[https://travis-ci.org/drusepth/Indent] {<img src="https://coveralls.io/repos/drusepth/Indent/badge.png" alt="Coverage Status" />}[https://coveralls.io/r/drusepth/Indent]
+
 
 == What is Indent?
 see {live website}[http://indentapp.com]
