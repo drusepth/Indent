@@ -1,4 +1,6 @@
 = Indent
+
+{<img src="https://badges.gitter.im/Join%20Chat.svg" alt="Join the chat at https://gitter.im/drusepth/Indent">}[https://gitter.im/drusepth/Indent?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge]
 {<img src="https://travis-ci.org/drusepth/Indent.png?branch=master" alt="Build Status" />}[https://travis-ci.org/drusepth/Indent]
 {<img src="https://coveralls.io/repos/drusepth/Indent/badge.svg?branch=master" alt="Coverage Status" />}[https://coveralls.io/r/drusepth/Indent?branch=master]
 {<img src="http://inch-ci.org/github/drusepth/Indent.svg?branch=master" alt="Inline docs" />}[http://inch-ci.org/github/drusepth/Indent]
